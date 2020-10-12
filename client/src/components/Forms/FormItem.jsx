@@ -22,9 +22,10 @@ class ItemForm extends Component {
     }
 
     apiHandler
-      .create("/items", fd)
+      .create("/api/items/", fd)
       .then((apiRes) => {
-        this.props.history.push("/items");
+        // this.props.history.push("/");
+        console.log(apiRes);
       })
       .catch((apiError) => {
         console.log(apiError);
@@ -41,6 +42,12 @@ class ItemForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log("Wax On Wax Off");
+
+    if (this.props.action === "edit") {
+      this.updateItem();
+    } else {
+      this.createItem();
+    }
 
     // In order to send back the data to the client, since there is an input type file you have to send the
     // data as formdata.
@@ -80,11 +87,17 @@ class ItemForm extends Component {
           </div>
 
           <div className="form-group">
-            <label className="label"  htmlFor="category"  >
+            <label className="label" htmlFor="category">
               Category
             </label>
 
-            <select id="category" name="category" defaultValue="-1" onChange={this.handleChange}  value={this.state.category}>
+            <select
+              id="category"
+              name="category"
+              defaultValue="-1"
+              onChange={this.handleChange}
+              value={this.state.category}
+            >
               <option value="-1" disabled>
                 Select a category
               </option>
@@ -99,7 +112,14 @@ class ItemForm extends Component {
             <label className="label" htmlFor="quantity">
               Quantity
             </label>
-            <input className="input" name="quantity" id="quantity" type="number" onChange={this.handleChange}  value={this.state.quantity} />
+            <input
+              className="input"
+              name="quantity"
+              id="quantity"
+              type="number"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            />
           </div>
 
           <div className="form-group">
@@ -127,7 +147,14 @@ class ItemForm extends Component {
             <label className="custom-upload label" htmlFor="image">
               Upload image
             </label>
-            <input className="input" name="image" id="image" type="file" onChange={this.handleChange}  value={this.state.image}/>
+            <input
+              className="input"
+              name="image"
+              id="image"
+              type="file"
+              onChange={this.handleChange}
+              value={this.state.image}
+            />
           </div>
 
           <h2>Contact information</h2>

@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Item = require("../models/Item");
+const uploader = require("../config/cloudinary");
 
 router.get("/", (req, res, next) => {
-
   Item.find()
     .then((dbResponse) => {
       res.status(200).json(dbResponse);
@@ -26,11 +26,12 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Route is prefixed with /friends
-router.post("/", (req, res, next) => {
+router.post("/", uploader.single("profileImage"), (req, res, next) => {
+  console.log("totototototoot");
   const newItem = req.body;
 
   if (req.file) {
-    newFriend.profileImage = req.file.path;
+    newItem.profileImage = req.file.path;
   }
 
   Item.create(newItem)
