@@ -3,6 +3,7 @@ const router = express.Router();
 const Item = require("../models/Item");
 
 router.get("/", (req, res, next) => {
+  console.log("totooooooo");
   Item.find()
     .then((dbResponse) => {
       res.status(200).json(dbResponse);
@@ -25,7 +26,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Route is prefixed with /friends
-router.post("/", uploader.single("profileImage"), (req, res, next) => {
+router.post("/", (req, res, next) => {
   const newItem = req.body;
 
   if (req.file) {
