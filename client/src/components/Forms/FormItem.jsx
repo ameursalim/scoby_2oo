@@ -58,6 +58,7 @@ class ItemForm extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <div className="ItemForm-container">
         <form className="form" onSubmit={this.handleSubmit}>
@@ -70,14 +71,16 @@ class ItemForm extends Component {
             <input
               id="name"
               className="input"
+              name="name"
               type="text"
               placeholder="What are you giving away ?"
               onChange={this.handleChange}
+              value={this.state.name}
             />
           </div>
 
           <div className="form-group">
-            <label className="label" htmlFor="category">
+            <label className="label" name="category" htmlFor="category" onChange={this.handleChange}  value={this.state.category} >
               Category
             </label>
 
@@ -96,7 +99,7 @@ class ItemForm extends Component {
             <label className="label" htmlFor="quantity">
               Quantity
             </label>
-            <input className="input" id="quantity" type="number" />
+            <input className="input" name="quantity" id="quantity" type="number" onChange={this.handleChange}  value={this.state.quantity} />
           </div>
 
           <div className="form-group">
@@ -113,7 +116,10 @@ class ItemForm extends Component {
             <textarea
               id="description"
               className="text-area"
+              name="description"
+              onChange={this.handleChange}
               placeholder="Tell us something about this item"
+              value={this.state.description}
             ></textarea>
           </div>
 
@@ -121,7 +127,7 @@ class ItemForm extends Component {
             <label className="custom-upload label" htmlFor="image">
               Upload image
             </label>
-            <input className="input" id="image" type="file" />
+            <input className="input" name="image" id="image" type="file" onChange={this.handleChange}  value={this.state.image}/>
           </div>
 
           <h2>Contact information</h2>
