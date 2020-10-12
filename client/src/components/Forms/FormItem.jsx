@@ -80,11 +80,11 @@ class ItemForm extends Component {
           </div>
 
           <div className="form-group">
-            <label className="label" name="category" htmlFor="category" onChange={this.handleChange}  value={this.state.category} >
+            <label className="label"  htmlFor="category"  >
               Category
             </label>
 
-            <select id="category" defaultValue="-1">
+            <select id="category" name="category" defaultValue="-1" onChange={this.handleChange}  value={this.state.category}>
               <option value="-1" disabled>
                 Select a category
               </option>
