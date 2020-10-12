@@ -1,9 +1,37 @@
 import React, { Component } from "react";
 import LocationAutoComplete from "../LocationAutoComplete";
+import apiHandler from "../api/apiHandler";
+import { withRouter } from "react-router-dom";
 import "../../styles/form.css";
 
 class ItemForm extends Component {
-  state = {};
+  state = {
+    name: "",
+    category: "",
+    quantity: 0,
+    adress: "",
+    description: "",
+    image: "",
+  };
+
+  componentDidMount() {
+    if (this.props.action === "edit") {
+      apiHandler
+        .getOne("/items", this.props.id)
+        .then((apiRes) => {
+          const friend = apiRes.data;
+          this.setState({
+            name: friend.name,
+            profileImage: friend.profileImage,
+            age: friend.age,
+            doesCode: friend.doesCode,
+          });
+        })
+        .catch((apiErr) => {
+          console.log(apiErr);
+        });
+    }
+  }
 
   handleChange(event) {
     console.log("Wax On Wax Off");
