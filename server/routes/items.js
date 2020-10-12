@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require("../models/Item");
 
 router.get("/", (req, res, next) => {
-  console.log("totooooooo");
+
   Item.find()
     .then((dbResponse) => {
       res.status(200).json(dbResponse);
