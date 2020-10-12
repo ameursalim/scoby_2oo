@@ -14,29 +14,29 @@ class ItemForm extends Component {
     image: "",
   };
 
-  componentDidMount() {
-    if (this.props.action === "edit") {
-      apiHandler
-        .getOne("/items", this.props.id)
-        .then((apiRes) => {
-          const friend = apiRes.data;
-          this.setState({
-            name: friend.name,
-            profileImage: friend.profileImage,
-            age: friend.age,
-            doesCode: friend.doesCode,
-          });
-        })
-        .catch((apiErr) => {
-          console.log(apiErr);
-        });
+  createItem() {
+    const fd = new FormData();
+
+    for (let key in this.state) {
+      fd.append(key, this.state[key]);
     }
+
+    apiHandler
+      .create("/items", fd)
+      .then((apiRes) => {
+        this.props.history.push("/items");
+      })
+      .catch((apiError) => {
+        console.log(apiError);
+      });
   }
 
-  handleChange(event) {
-    console.log("Wax On Wax Off");
-    this.setState({});
-  }
+  handleChange = (event) => {
+    const name = event.target.name;
+    const value =
+      event.target.type === "file" ? event.target.files[0] : event.target.value;
+    this.setState({ [name]: value });
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -60,7 +60,7 @@ class ItemForm extends Component {
   render() {
     return (
       <div className="ItemForm-container">
-        <form className="form" onChange={this.handleChange}>
+        <form className="form" onSubmit={this.handleSubmit}>
           <h2 className="title">Add Item</h2>
 
           <div className="form-group">
@@ -72,6 +72,7 @@ class ItemForm extends Component {
               className="input"
               type="text"
               placeholder="What are you giving away ?"
+              onChange={this.handleChange}
             />
           </div>
 
@@ -130,10 +131,10 @@ class ItemForm extends Component {
               How do you want to be reached?
             </label>
             <div>
-              <input type="radio" />
+              <input type="radio" name="contact" value="email" />
               user email
             </div>
-            <input type="radio" />
+            <input type="radio" name="contact" value="phone" />
             contact phone number
           </div>
 
