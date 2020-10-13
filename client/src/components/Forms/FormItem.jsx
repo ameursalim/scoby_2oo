@@ -10,6 +10,8 @@ class ItemForm extends Component {
     category: "",
     quantity: 0,
     adress: "",
+    location : {coordinates:[0]},
+    
     description: "",
     image: "",
     doesCode: false,
@@ -27,7 +29,7 @@ class ItemForm extends Component {
       .create("/api/items/", this.state)
       .then((apiRes) => {
         this.props.history.push("/");
-        console.log(apiRes);
+        console.log("apiRes:",apiRes);
       })
       .catch((apiError) => {
         console.log(apiError);
@@ -43,7 +45,7 @@ class ItemForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("foo");
+  
 
     if (this.props.action === "edit") {
       this.updateItem();
@@ -60,14 +62,21 @@ class ItemForm extends Component {
   };
 
   handlePlace = (place) => {
+
+   const location = place.geometry
+    this.setState({location: place.geometry });
+    // location : {coordinates:[0]}
+    // place.geometry.coordinates
+
+
     // This handle is passed as a callback to the autocomplete component.
     // Take a look at the data and see what you can get from it.
     // Look at the item model to know what you should retrieve and set as state.
-    console.log(place);
+    console.log("place :",place);
   };
 
   render() {
-    console.log(this.state);
+    console.log("this.state :",this.state);
     return (
       <div className="ItemForm-container">
         <form className="form" onSubmit={this.handleSubmit}>
