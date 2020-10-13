@@ -12,6 +12,8 @@ class ItemForm extends Component {
     adress: "",
     description: "",
     image: "",
+    doesCode: false,
+    submitted: false,
   };
 
   createItem() {
@@ -24,7 +26,7 @@ class ItemForm extends Component {
     apiHandler
       .create("/api/items/", fd)
       .then((apiRes) => {
-        // this.props.history.push("/");
+        this.props.history.push("/");
         console.log(apiRes);
       })
       .catch((apiError) => {
@@ -41,7 +43,7 @@ class ItemForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Wax On Wax Off");
+    console.log("foo");
 
     if (this.props.action === "edit") {
       this.updateItem();
@@ -153,7 +155,7 @@ class ItemForm extends Component {
               id="image"
               type="file"
               onChange={this.handleChange}
-              value={this.state.image}
+      
             />
           </div>
 
