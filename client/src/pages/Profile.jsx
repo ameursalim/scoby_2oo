@@ -1,10 +1,51 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withUser } from "../components/Auth/withUser";
+import apiHandler from "../api/apiHandler";
 import "../styles/Profile.css";
 import "../styles/CardItem.css";
+
 class Profile extends Component {
-  
+  state = {
+    phoneNumber: 0,
+  };
+
+  createphoneNumber() {
+    const fd = new FormData();
+
+    for (let key in this.state) {
+      fd.append(key, this.state[key]);
+    }
+
+    apiHandler
+      .create("/api/user", fd)
+      .then((apiRes) => {
+        this.props.history.push("/profile");
+        console.log(apiRes);
+      })
+      .catch((apiError) => {
+        console.log(apiError);
+      });
+  }
+
+  handleChange = (event) => {
+    const name = event.target.name;
+    const value =
+      event.target.type === "file" ? event.target.files[0] : event.target.value;
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("foo");
+
+    if (this.props.action === "edit") {
+      this.updatephoneNumber();
+    } else {
+      this.createphoneNumber();
+    }
+  };
+
   render() {
     const { authContext } = this.props;
     const { user } = authContext;
@@ -43,7 +84,7 @@ class Profile extends Component {
           <div className="user-contact">
             <h4>Add a phone number</h4>
 
-            <form className="form">
+            <form className="form" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label className="label" htmlFor="phoneNumber">
                   Phone number
@@ -54,6 +95,8 @@ class Profile extends Component {
                   type="text"
                   name="phoneNumber"
                   placeholder="Add phone number"
+                  name="phoneNumber"
+                  onChange={this.handleChange}
                 />
               </div>
               <button className="form__button">Add phone number</button>
