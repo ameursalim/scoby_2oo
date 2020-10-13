@@ -51,6 +51,13 @@ export default {
       .catch(errorHandler);
   },
 
+  getPhone() {
+    return service
+      .get("/api/user")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
   getAll(endPoint) {
     return service.get(endPoint);
   },
