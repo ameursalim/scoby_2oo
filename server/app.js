@@ -19,11 +19,12 @@ app.use(express.json()); // Access data sent as json @req.body
 app.use(express.urlencoded({ extended: false })); // Access data sent as urlEncoded (standard form or postman) @req.body
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(
-//   cors({
-//     origin: process.env.FRONTEND_URL,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.use(
   session({
