@@ -17,14 +17,14 @@ class ItemForm extends Component {
   };
 
   createItem() {
-    const fd = new FormData();
+    //   const fd = new FormData();
 
-    for (let key in this.state) {
-      fd.append(key, this.state[key]);
-    }
+    //   for (let key in this.state) {
+    //   fd.append(key, this.state[key]);
+    // }
 
     apiHandler
-      .create("/api/items/", fd)
+      .create("/api/items/", this.state)
       .then((apiRes) => {
         this.props.history.push("/");
         console.log(apiRes);
@@ -155,7 +155,6 @@ class ItemForm extends Component {
               id="image"
               type="file"
               onChange={this.handleChange}
-      
             />
           </div>
 

@@ -26,7 +26,8 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Route is prefixed with /friends
-router.post("/", uploader.single("image"), (req, res, next) => {
+//router.post("/", uploader.single("image"), (req, res, next) => {
+router.post("/",  (req, res, next) => {
   console.log("totototototoot");
   const newItem = req.body;
 
