@@ -4,6 +4,7 @@ import { withUser } from "../components/Auth/withUser";
 import "../styles/Profile.css";
 import "../styles/CardItem.css";
 class Profile extends Component {
+  
   render() {
     const { authContext } = this.props;
     const { user } = authContext;
